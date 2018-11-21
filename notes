@@ -1,0 +1,140 @@
+Quien soy, (01:00, 01:00)
+
+=================================================
+
+Objetivo:
+Dar un vistazo rapido de que es Dask. (00:20, 01:20)
+
+=================================================
+
+Como ejecutar este notebook (01:00, 02:20)
+
+=================================================
+
+DASK  (03:00, 05:20)
+Que es? 
+
+Dask es una libreria para computacion paralela en Python.
+
+Esta compuesta por dos grandes partes:
+
+* Por un lado tenemos la interfaz del usuario, básicamente las cosas con las que vamos a lidiar
+nosotros, los programadores. Esta interfaz se usa para definir un grafo de tareas a ser ejecutadas. 
+
+Este grafo se puede definir de alguna forma un tanto indirecta por medio de collecciones de alto nivel
+o de forma mas directa con las interfaces de bajo nivel. 
+
+  * Alto nivel: Array (Simil a numpy array), Bags, Dataframes (simil a Pandas)
+  * Bajo nivel: Delayed, Futures
+
+* Schedulers: son los encargados de ejecutar muchas funciones python en forma paralela
+
+Nos vamos a concentrar en la primer parte.
+
+=================================================
+
+Por que? (03:00, 08:20)
+
+Porque nos gusta Python!!
+
+* Familiar API
+
+Las herramientas a las que estamos acostumbrados quienes hacemos DS (pandas y numpy ie) 
+funcionan bien pero se quedan cortas cuando queremos analizar grandes volumenes de datos. 
+Algo que vaya más allá de una simple computadora.
+
+Dask permite reescribir nuestros analisis sin cambiar demasiado el API. 
+Por ejemplo, gran parte (no toda, pero lo que mayormente se usa) del API de 
+Dataframes de Pandas esta soportado por el dataframe de Dask; 
+o sea, con poco esfuerzo podemos analizar grandes volumenes de datos.
+
+* Single Computer & Cluster
+
+Dask esta pensado para poder correr tanto en una simple computadora de escritorio 
+sin generar demasiado overhead, como para despues escalar y correr en algun 
+cluster con miles de maquinas.
+En un solo computadora permite correr cosas que antes no se podia por falta de memoria,
+ademas de aprovechar todos los nucleos que la misma tiene.
+
+Si lo queremos usar en cluster tiene utilidades y documentacion para hacerlo in-house, 
+en la nube, en supercomputadoras, soporta encriptacion y autenticacion, etc.
+
+* Integrates with the Python ecosystem
+
+Se crea inmerso en el ecosistema Python, con lo cual soporta y mantiene protocolos en existencia.
+Eso posibilita la integración con el resto de herramientas que ya conocemos.
+
+* Supports complex applications
+
+Los schedulers de Dask estan pensados para ejecutar grafos de ejecución bastante 
+complejos de forma muy rápida.
+Estos grafos complejos no necesariamente surgen de trabajar con las interfaces de alto nivel,
+con las de bajo nivel se pueden implementar y paralelizar algoritmos que no necesariamente 
+encajan en soluciones del tipo MapReduce.
+
+* Responsive feedback
+
+Viene con varias funciones para conocer el progreso, debugear cada worker, estadisticas de cuanto
+demora cada funcion, etc..
+
+=================================================
+
+Dask Array (04:00, 12:20)
+
+La idea es dividir un array de Numpy en varias particiones mas pequeñas que 
+caben en memoria y luego procesar cada una de las partes mediante los grafos de Dask.
+
+Explicación del ejemplo y de la visualización.
+
+Numpy vs DA:
+
+Se genera una matriz de 20K*20K que son aprox 3.2GB de ram. 
+El tiempo es notablemente menor con Dask ya que se aprovechan los 8 cores de la maquina 
+al generar los numeros de forma aleatoria.
+
+Diagnostics.
+Notable el bajo uso de ram. Esto se debe a que va calculando el promedio a medida que se van generando los 
+valores.
+
+=================================================
+
+Dask Bag (02:00, 14:20)
+
+Dask Bag permite paralelizar estructuras de Python genericas como listas o diccionarios. 
+Es particularmente util para procesar datos semiestructuras, como Jsons.
+
+Ej: Tenemos 12 archivos jsonlines, uno por mes con datos de tareas y la duracion de las mismas. 
+
+=================================================
+
+Dask Dataframe (03:00, 17:20)
+
+Es un dataframe con una API que es un subconjunto de la de pandas, compuesto de varias particiones (que son dataframes de pandas)
+
+#### Common uses
+
+* Dataset doesn't fit in memory:
+Pandas DF esta pensado para estar en memoria
+
+* Distributed computing on large datasets with standard Pandas operations like groupby, join
+
+#### Anti uses
+
+* Data fits in memory
+* Data is not tabular
+* Non standar operations are needed 
+
+
+=================================================
+
+Delayed (03:00, 20:20)
+
+Permite paralelizar codigo Python de forma arbitraria, modificando muy poco la sintaxis original.
+
+Por ejemplo, si queremos ejecutar el siguiente codigo (explicacion de que hace el codigo)
+
+Lo podemos hacer de esta forma...
+
+=================================================
+
+Espacio para preguntas (5:00, 25:20)
