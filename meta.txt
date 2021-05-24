@@ -1,0 +1,8 @@
+Titulo: 
+Procesando datos en paralelo con Dask.
+
+Abstract:
+Durante la charla se presentará una introducción a Dask para el procesamiento de datos en forma paralela.
+Cuando conviene usarlo? Cuales son las abstracciones? Que diferencia hay con Pandas? Que operaciones se pueden hacer? Son algunas de las preguntas que tratarán de contestar.
+
+
